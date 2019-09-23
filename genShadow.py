@@ -14,9 +14,9 @@ def genShadow(data, shadow_fn):
     f = open(shadow_fn,'w')
     for line in data:
         if line == "": continue
-        command = ["mkpasswd",line]
-        res = subprocess.check_output(command, stderr=subprocess.STDOUT)
-        f.write(res)
+        command = ["mkpasswd","-m","sha-512",line]
+        res = subprocess.check_output(command, stderr=subprocess.STDOUT).replace('\n','')
+        f.write(line+":"+res+":18029:0:99999:7:::\n")
     f.close()
 
 # Main functions
